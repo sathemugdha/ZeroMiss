@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ZeroMiss – Trade Checklist</title>
+    <link rel="stylesheet" href="{% static 'checklist/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 ZeroMiss – Trade Checklist</h1>
+
+        <form id="setupForm">
+            <label for="trade_type">Trade Type:</label>
+            <select id="trade_type" required>
+                <option value="">--Select--</option>
+                <option value="momentum">Momentum</option>
+                <option value="swing">Swing</option>
+            </select>
+
+            <label for="setup_type">Setup Type:</label>
+            <select id="setup_type" required>
+                <option value="">--Select--</option>
+                <option value="3rdwave">3rd Wave Setup</option>
+                <option value="triangle">Triangle BO/BD Setup</option>
+            </select>
+
+            <label for="direction">Direction:</label>
+            <select id="direction" required>
+                <option value="">--Select--</option>
+                <option value="bullish">Bullish</option>
+                <option value="bearish">Bearish</option>
+            </select>
+
+            <button type="submit">Show Checklist</button>
+        </form>
+
+        <div id="contextChecklist">
+    <h2>🧠 Context Building Checklist</h2>
+    <form id="contextForm">
+        <h3>Ms. TA’s Tools</h3>
+        <label><input type="checkbox"> DOW Theory</label>
+        <label><input type="checkbox"> Trendlines</label>
+        <label><input type="checkbox"> Horizontal Supports & Resistances</label>
+        <label><input type="checkbox"> Fibonacci Retracement</label>
+        <label><input type="checkbox"> Moving Averages</label>
+        <label><input type="checkbox"> MACD</label>
+        <label><input type="checkbox"> Stochastic OB/OS after long time</label>
+        <label><input type="checkbox"> Gaps</label>
+        <label><input type="checkbox"> Candle Blending</label>
+        <label><input type="checkbox"> 3 BC / 3 WS</label>
+    </form>
+</div>
+        <div id="checklistSection" style="display:none;">
+            <h2>✅ Tick Off Your Checklist</h2>
+            <form id="checklistForm"></form>
+            <button type="button" onclick="evaluateChecklist()">Evaluate</button>
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        const checklistData = {{ checklists|safe }};
+
+        const setupForm = document.getElementById("setupForm");
+        const checklistForm = document.getElementById("checklistForm");
+        const checklistSection = document.getElementById("checklistSection");
+        const result = document.getElementById("result");
+
+        setupForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            checklistForm.innerHTML = "";
+            result.textContent = "";
+
+            const type = document.getElementById("trade_type").value;
+            const setup = document.getElementById("setup_type").value;
+            const dir = document.getElementById("direction").value;
+
+            const key = `${type}_${setup}_${dir}`;
+            const checklist = checklistData[key];
+
+            if (checklist && Object.keys(checklist).length > 0) {
+                for (const section in checklist) {
+                    const header = document.createElement("h3");
+                    header.textContent = section;
+                    checklistForm.appendChild(header);
+
+                    checklist[section].forEach(item => {
+                        const label = document.createElement("label");
+                        label.classList.add("check-item");
+                        const checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(" " + item));
+                        checklistForm.appendChild(label);
+                    });
+                }
+
+                checklistSection.style.display = "block";
+            } else {
+                checklistSection.style.display = "none";
+                alert("No checklist found for the selected combination.");
+            }
+        });
+
+        function evaluateChecklist() {
+            const checkboxes = document.querySelectorAll('#checklistForm input[type="checkbox"]');
+            let allChecked = true;
+            checkboxes.forEach(cb => {
+                if (!cb.checked) allChecked = false;
+            });
+
+            if (allChecked) {
+                result.textContent = "✅ All checks passed. Trade is ready!";
+                result.style.color = "green";
+            } else {
+                result.textContent = "❌ Some checks are missing. Review before trading.";
+                result.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>

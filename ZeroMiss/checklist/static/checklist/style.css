@@ -1,0 +1,113 @@
+/* Global Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 2em;
+}
+
+/* Card Container */
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 2em;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    color: #1f2937;
+    margin-bottom: 1.5em;
+}
+
+h2 {
+    margin-top: 2em;
+    color: #1e3a8a;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+h3 {
+    margin-top: 1.5em;
+    color: #374151;
+    font-size: 1.1rem;
+    margin-bottom: 0.5em;
+}
+
+/* Form Inputs */
+label {
+    display: block;
+    margin: 0.75em 0 0.25em;
+    font-weight: 500;
+    color: #333;
+}
+
+select {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1rem;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Checklist checkboxes */
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+    font-size: 0.98rem;
+}
+
+/* Buttons */
+button {
+    margin-top: 1.5em;
+    padding: 0.6em 1.5em;
+    font-size: 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #1e40af;
+}
+
+/* Result */
+#result {
+    margin-top: 1.5em;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#contextChecklist {
+    margin-top: 2em;
+    padding: 1em 0;
+    border-top: 2px solid #e2e8f0;
+}
+
+#contextChecklist label {
+    display: block;
+    margin: 0.5em 0;
+    font-size: 0.95rem;
+}
+
+#contextChecklist h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: #334155;
+}
+
+#contextChecklist h3 {
+    margin-top: 1em;
+    font-size: 1.05rem;
+    color: #1e293b;
+}
